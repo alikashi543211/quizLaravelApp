@@ -1,0 +1,9 @@
+Dear Kashif!
+
+ As the next part of the hiring process, you need to do the below assignment in Laravel's latest version and push the code to the Github repo and share it with me. The assignment would be to create MCQ questions along with their answers and store them in the database. Once the questions are created we need to show the questions to users where they can answer those questions and the results should be stored in a database. Also, you should create a report to show the results data for all users who completed those questions. Please let me know if you have any questions on this.
+All this should have in a password-protected area and the user should first log in to access the above pages.
+The deadline would be 19th July 2023 at 7 pm
+
+Best Regards,
+HR Department 
+SoftPyramid
