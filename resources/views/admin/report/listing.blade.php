@@ -34,14 +34,16 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            <tr>
-                                <td>333</td>
-                                <td>John Doe</td>
-                                <td>john@gmail.com</td>
-                                <td>
-                                    <a href="{{ url('admin/report/result?id=2') }}" class="btn btn-primary">Result</a>
-                                </td>
-                            </tr>
+                            @foreach($listing as $user)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        <a href="{{ url('admin/report/result?id=2') }}" class="btn btn-primary">Result</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

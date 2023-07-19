@@ -48,10 +48,9 @@ class AuthController extends Controller
                         return redirect()->to('admin/dashboard');
                     }
                 }
-            }else{
-                DB::rollback();
-                return redirect()->back()->with('error', "Username or password is incorrect");
             }
+            DB::rollback();
+            return redirect()->back()->with('error', "Username or password is incorrect");
 
         } catch (QueryException $e) {
             DB::rollBack();

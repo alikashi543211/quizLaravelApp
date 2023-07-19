@@ -30,7 +30,7 @@ class ReportController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
-            $listing = $this->model->newQuery()->get();
+            $listing = $this->model->newQuery()->whereRoleId(ROLE_USER)->get();
             DB::commit();
             return view("admin.report.listing", get_defined_vars());
         } catch (QueryException $e) {
@@ -46,7 +46,12 @@ class ReportController extends Controller
     {
         try {
             DB::beginTransaction();
-            $questionnaireList = $this->model->newQuery()->get();
+            $inputs = $request->all();
+            $user = $this->model->newQuery()->whereId($inputs['id'])->first();
+            $listing = $this->questionnaire->newQuery()->with('answers')->get()->toArray();
+            updateQuestionnaireList($listing, $user->id);
+            $correct = getCorrectAnswersCount($user->id);
+            $incorrect = getInCorrectAnswersCount($user->id);
             DB::commit();
             return view("admin.report.result", get_defined_vars());
         } catch (QueryException $e) {
@@ -57,4 +62,5 @@ class ReportController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 }

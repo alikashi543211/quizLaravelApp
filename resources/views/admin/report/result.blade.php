@@ -10,36 +10,20 @@
             <li class="breadcrumb-item active">Result</li>
         </ol>
         <div class="row">
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white mb-4">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-success text-white mb-4">
                     <div class="card-body">Correct</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <span class="small text-white stretched-link">7</span>
+                        <span class="small text-white stretched-link">{{ $correct ?? '' }}</span>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-warning text-white mb-4">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-danger text-white mb-4">
                     <div class="card-body">In Correct</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <span class="small text-white stretched-link">7</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-body">Attempted</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <span class="small text-white stretched-link">7</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-danger text-white mb-4">
-                    <div class="card-body">Not Attempted</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <span class="small text-white stretched-link">7</span>
+                        <span class="small text-white stretched-link">{{ $incorrect ?? '' }}</span>
                     </div>
                 </div>
             </div>
@@ -47,270 +31,26 @@
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Quizz Result of John Doe
+                Quizz Result of {{ $user->name }}
             </div>
             <div class="card-body">
                 <table class="table">
                     <!-- Question and answers with corrrect and incorrect -->
+                    @foreach($listing as $quesKey => $ques)
                         <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
+                            <th @if($loop->iteration > 1) class="pt-5" @endif>
+                                <input type="hidden" name="user_questionnaire[{{$quesKey}}][questionnaire_id]" value="{{ $ques['id'] }}">
+                                {{ $ques['title'] }}
                             </th>
                         </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="pt-5">
-                                How do you calculate the number of vowels and consonants in a String?
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer A
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-success text-white">
-                                Answer B
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                Answer C
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 bg-danger text-white">
-                                Answer D
-                            </td>
-                        </tr>
+                        @foreach($ques['answers'] as $answerKey => $answer)
+                            <tr>
+                                <td class="p-3 @if($answer['id'] == $answer['user_answer_id'] && !$answer['is_correct']) bg-danger text-white @elseif($answer['is_correct']) bg-success text-white @else bg-light text-dark @endif">
+                                    {{ $answer['title'] }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endforeach
                 </table>
             </div>
         </div>

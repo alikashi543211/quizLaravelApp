@@ -13,9 +13,9 @@
                             <div class="alert alert-info">
                                 Welcome <strong>John Doe</strong>
                             </div>
-                            <div>
-                                <a href="{{ url('user/quiz') }}" class="btn btn-success">Start Quiz</a>
-                                <a href="{{ url('user/quiz/result') }}" class="btn btn-danger">Show Result</a>
+                            <div class="my-5">
+                                <a href="{{ url('user/quiz') }}" class="btn btn-success @if(auth()->user()->is_quiz_submitted) d-none @endif">Start Quiz</a>
+                                <a href="{{ url('user/quiz/result') }}" class="btn btn-danger @if(!auth()->user()->is_quiz_submitted) d-none @endif">Show Result</a>
                             </div>
                         </div>
                     </div>
