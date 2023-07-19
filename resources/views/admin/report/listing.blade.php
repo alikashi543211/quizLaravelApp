@@ -40,7 +40,11 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <a href="{{ url('admin/report/result?id=2') }}" class="btn btn-primary">Result</a>
+                                        @if(!$user->is_quiz_submitted)
+                                            <button class="btn btn-primary" disabled="true">Result</button>
+                                        @else
+                                            <a href="{{ url('admin/report/result?id=2') }}" class="btn btn-primary" disabled="true">Result</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

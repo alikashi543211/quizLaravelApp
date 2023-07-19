@@ -16,6 +16,7 @@ class QuestionnaireSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('user_questionnaires')->truncate();
         DB::table('questionnaires')->truncate();
         DB::table('questionnaires')->insert([
             [
