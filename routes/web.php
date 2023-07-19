@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::prefix('auth')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('login', 'login');
+        Route::post('logout', 'logout');
+    });
+    Route::controller(RegisterController::class)->group(function () {
+        Route::post('register', 'register');
+        Route::post('verifyEmailVerificationCode', 'verifyEmailVerificationCode');
+        Route::post('verificationCodeResend', 'verificationCodeResend');
+    });
+});
