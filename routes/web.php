@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\QuizController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +29,19 @@ Route::prefix('auth')->group(function () {
     Route::controller(RegisterController::class)->group(function () {
         Route::get('register', 'registerForm');
         Route::post('register', 'register');
+    });
+});
+
+Route::prefix('user')->middleware(['auth'])->group(function () {
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('dashboard', 'dashboard')->name('user.dashboard');
+    });
+    Route::prefix('quiz')->group(function() {
+        Route::controller(QuizController::class)->group(function () {
+            Route::get('', 'quizForm')->name('user.quiz.home');
+            Route::post('store', 'store')->name('user.quiz.store');
+            Route::get('result', 'result')->name('user.quiz.result');
+        });
     });
 });
 
