@@ -7,6 +7,7 @@ use App\Http\Requests\User\Quiz\StoreRequest;
 use App\Models\Answer;
 use App\Models\Questionnaire;
 use App\Models\User;
+use App\Models\UserQuestionnaire;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -14,10 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
-    private $model, $answer, $user;
+    private $model, $answer, $user, $user_questionnaire;
     public function __construct()
     {
         $this->model = new Questionnaire();
+        $this->user_questionnaire = new UserQuestionnaire();
         $this->answer = new Answer();
         $this->user = new User();
     }
@@ -44,8 +46,10 @@ class QuizController extends Controller
             DB::commit();
             return view("user.quiz.result", get_defined_vars());
         } catch (QueryException $e) {
+            DB::rollback();
             return redirect()->back()->with('error', $e->getMessage());
         } catch (Exception $e) {
+            DB::rollback();
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -57,12 +61,10 @@ class QuizController extends Controller
             $inputs = $request->all();
             $user = $this->model->newInstance();
             $user->fill($inputs);
-            $user->role_id = ROLE_USER;
             if (!$user->save()) {
                 DB::rollback();
                 return redirect()->back()->with('error', GENERAL_ERROR_MESSAGE);
             }
-            Auth::login($user);
             DB::commit();
             return redirect()->route('user.quiz.result');
         } catch (QueryException $e) {
