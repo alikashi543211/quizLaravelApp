@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('auth/login');
 });
 Route::prefix('auth')->group(function () {
     Route::controller(AuthController::class)->group(function () {
