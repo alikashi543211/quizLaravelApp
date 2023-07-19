@@ -43,7 +43,7 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
-            $questionnaire = $this->model->newQuery()->whereId($inputs['id'])->with('answers')->first();
+            $ques = $this->model->newQuery()->whereId($inputs['id'])->with('answers')->first()->toArray();
             DB::commit();
             return view("admin.questionnaire.edit", get_defined_vars());
         } catch (QueryException $e) {
@@ -72,6 +72,7 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
+            $this->answer->newQuery()->whereQuestionnaireId($inputs['id'])->delete();
             if(!$this->model->newQuery()->whereId($inputs['id'])->delete())
             {
                 DB::rollBack();
@@ -93,7 +94,7 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
-            $listing = $this->model->newQuery()->with('answers')->get();
+            $listing = $this->model->newQuery()->get();
             DB::commit();
             return view("admin.questionnaire.listing", get_defined_vars());
         } catch (QueryException $e) {
@@ -110,11 +111,27 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
-            $ques = $this->model->newInstance();
-            $ques->fill($inputs);
-            if (!$ques->save()) {
+            $model = $this->model->newInstance();
+            $model->fill($inputs);
+            if(!$model->save())
+            {
                 DB::rollback();
                 return redirect()->back()->with('error', GENERAL_ERROR_MESSAGE);
+            }
+            foreach($inputs['answers'] as $answerVal)
+            {
+                $answer = $this->answer->newInstance();
+                $answer->fill($answerVal);
+                if(isset($answerVal['is_correct']))
+                {
+                    $answer->is_correct = 1;
+                }
+                $answer->questionnaire_id = $model->id;
+                if(!$answer->save())
+                {
+                    DB::rollback();
+                    return redirect()->back()->with('error', GENERAL_ERROR_MESSAGE);
+                }
             }
             DB::commit();
             return redirect()->route('admin.questionnaire.listing')->with('success', GENERAL_SUCCESS_MESSAGE);
@@ -132,14 +149,31 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
-            $ques = $this->model->newQuery()->whereId($inputs['id'])->first();
-            $ques->fill($inputs);
-            if (!$ques->save()) {
+            $model = $this->model->newQuery()->whereId($inputs['id'])->first();
+            $model->fill($inputs);
+            if(!$model->save())
+            {
                 DB::rollback();
                 return redirect()->back()->with('error', GENERAL_ERROR_MESSAGE);
             }
+            // dd($inputs['answers']);
+            foreach($inputs['answers'] as $answerVal)
+            {
+                $answer = $this->answer->newInstance();
+                $answer->fill($answerVal);
+                if(isset($answerVal['is_correct']))
+                {
+                    $answer->is_correct = 1;
+                }
+                $answer->questionnaire_id = $model->id;
+                if(!$answer->save())
+                {
+                    DB::rollback();
+                    return redirect()->back()->with('error', GENERAL_ERROR_MESSAGE);
+                }
+            }
             DB::commit();
-            return redirect()->route('admin.questionnaire.listing')->with('success', GENERAL_SUCCESS_MESSAGE);
+            return redirect()->route('admin.questionnaire.listing')->with('success', GENERAL_UPDATED_MESSAGE);
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

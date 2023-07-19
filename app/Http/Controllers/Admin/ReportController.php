@@ -46,7 +46,7 @@ class ReportController extends Controller
     {
         try {
             DB::beginTransaction();
-            $questionnaireList = $this->model->newQuery()->with('answers')->get();
+            $questionnaireList = $this->model->newQuery()->get();
             DB::commit();
             return view("admin.report.result", get_defined_vars());
         } catch (QueryException $e) {

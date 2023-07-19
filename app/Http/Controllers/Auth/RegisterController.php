@@ -46,7 +46,7 @@ class RegisterController extends Controller
             }
             Auth::login($user);
             DB::commit();
-            return redirect()->route('quizz.home');
+            return redirect()->to('user/dashboard');
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

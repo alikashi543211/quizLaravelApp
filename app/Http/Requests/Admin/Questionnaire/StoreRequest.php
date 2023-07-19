@@ -24,11 +24,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'questionnaire' => 'required|array',
-            'questionnaire.*.title' => 'required',
-            'questionnaire.*.answers' => 'required|array|size:4',
-            'questionnaire.*.answers.*.title' => 'required',
-            'questionnaire.*.answers.*.is_correct' => 'required',
+            'title' => 'required',
+            'answers' => 'required|array|size:4',
+            'answers.*.title' => 'required',
+            'answers.*.is_correct' => 'nullable',
         ];
     }
 }

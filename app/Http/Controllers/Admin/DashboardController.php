@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     }
 
-    public function quizForm()
+    public function dashboard()
     {
         try {
             return view("admin.dashboard");

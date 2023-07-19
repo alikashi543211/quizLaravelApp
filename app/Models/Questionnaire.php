@@ -11,6 +11,10 @@ class Questionnaire extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title'
+    ];
+
     public function answers(): HasMany
     {
         return $this->hasMany(Answer::class, 'questionnaire_id', 'id');

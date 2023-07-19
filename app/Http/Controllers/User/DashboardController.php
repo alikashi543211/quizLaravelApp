@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $this->model = new User();
     }
 
-    public function quizForm()
+    public function dashboard()
     {
         try {
             return view("user.dashboard", get_defined_vars());

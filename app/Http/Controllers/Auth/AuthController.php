@@ -39,14 +39,14 @@ class AuthController extends Controller
             if ($user  = $this->model->newQuery()->where('email', $inputs['email'])->first()) {
                 if (Hash::check($inputs['password'], $user->password)) {
                     Auth::login($user);
-                    if ($user->is_quizz_submitted) {
+                    if($user->role_id == ROLE_USER)
+                    {
                         DB::commit();
-                        return redirect()->route('quizz.result');
+                        return redirect()->to('user/dashboard');
                     }else{
                         DB::commit();
-                        return redirect()->route('quizz.home');
+                        return redirect()->to('admin/dashboard');
                     }
-
                 }
             }else{
                 DB::rollback();
@@ -68,7 +68,7 @@ class AuthController extends Controller
             DB::beginTransaction();
             Auth::logout();
             $request->session()->invalidate();
-
+            return redirect()->to('auth/login');
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
