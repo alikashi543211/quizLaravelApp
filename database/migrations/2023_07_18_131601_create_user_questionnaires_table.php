@@ -24,6 +24,8 @@ class CreateUserQuestionnairesTable extends Migration
 
         Schema::table("user_questionnaires", function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('questionnaire_id')->references('id')->on('questionnaires')->onDelete('cascade');
+            $table->foreign('answer_id')->references('id')->on('answers')->onDelete('cascade');
         });
     }
 

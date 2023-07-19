@@ -15,9 +15,13 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('questionnaire_id');
             $table->string("title");
             $table->boolean("is_correct")->default(false);
             $table->timestamps();
+        });
+        Schema::table("answers", function (Blueprint $table) {
+            $table->foreign('questionnaire_id')->references('id')->on('questionnaires')->onDelete('cascade');
         });
     }
 
