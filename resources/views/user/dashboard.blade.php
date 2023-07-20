@@ -11,7 +11,7 @@
                         <div class="card-header"><h3 class="text-center font-weight-light my-4">Dashboard</h3></div>
                         <div class="card-body">
                             <div class="alert alert-info">
-                                Welcome <strong>John Doe</strong>
+                                Welcome <strong>{{ auth()->user()->name }}</strong>
                             </div>
                             <div class="my-5">
                                 <a href="{{ url('user/quiz') }}" class="btn btn-success @if(auth()->user()->is_quiz_submitted) d-none @endif">Start Quiz</a>
