@@ -28,6 +28,10 @@ class QuizController extends Controller
     {
         try {
             DB::beginTransaction();
+            if(auth()->user()->is_quiz_submitted) {
+                DB::rollBack();
+                return redirect()->to('user/quiz/result');
+            }
             $listing = $this->questionnaire->newQuery()->with('answers')->get();
             DB::commit();
             return view("user.quiz.home", get_defined_vars());
