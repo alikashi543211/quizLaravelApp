@@ -43,7 +43,7 @@
                                         @if(!$user->is_quiz_submitted)
                                             <button class="btn btn-primary" disabled="true">Result</button>
                                         @else
-                                            <a href="{{ url('admin/report/result?id=' . {{ $user->id }}) }}" class="btn btn-primary" disabled="true">Result</a>
+                                            <a href="{{ url('admin/report/result?id=' . $user->id) }}" class="btn btn-primary" disabled="true">Result</a>
                                         @endif
                                     </td>
                                 </tr>
