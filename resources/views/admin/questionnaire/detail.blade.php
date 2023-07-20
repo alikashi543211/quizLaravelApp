@@ -1,49 +1,46 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Questionnaire Detail')
+@section('title', 'Report Listing')
 
 @section('content')
-    <main>
-        <div class="container-fluid px-4">
-            <h1 class="mt-4">Questionnaire</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Questionnaire</li>
-            </ol>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Questionnaire Detail
-                </div>
-                <div class="card-body">
-                    <table>
-                            <tr>
-                                <th>
-                                    How do you calculate the number of vowels and consonants in a String?
-                                </th>
-                            </tr>
-                            <tr>
-                                <td class="p-3">
-                                    Answer A
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-3" style="background-color: green;color:white;">
-                                    Answer B
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">
-                                    Answer C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">
-                                    Answer D
-                                </td>
-                            </tr>
-                    </table>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Questionnaire</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Questionnaire</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Total Questions</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <span class="small text-white stretched-link">{{ count($listing) }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table">
+                    <!-- Question and answers with corrrect and incorrect -->
+                    @foreach($listing as $quesKey => $ques)
+                        <tr>
+                            <th @if($loop->iteration > 1) class="pt-5" @endif>
+                                <input type="hidden" name="user_questionnaire[{{$quesKey}}][questionnaire_id]" value="{{ $ques['id'] }}">
+                                {{ $ques['title'] }}
+                            </th>
+                        </tr>
+                        @foreach($ques['answers'] as $answerKey => $answer)
+                            <tr>
+                                <td class="p-3 @if($answer['is_correct']) bg-success text-white @else bg-light text-dark @endif">
+                                    {{ $answer['title'] }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
 @endsection

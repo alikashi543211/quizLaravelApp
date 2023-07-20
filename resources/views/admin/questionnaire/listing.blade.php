@@ -12,6 +12,7 @@
             @include('layouts.includes.alert')
             <div class="p-3">
                 <a class="btn btn-success" href="{{ url('admin/questionnaire/add') }}">Add New</a>
+                <a href="{{ url('admin/questionnaire/detail') }}" class="btn btn-info">Show Questionnaire</a>
             </div>
             <div class="card mb-4">
                 <div class="card-header">
@@ -40,7 +41,6 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $ques->title }}</td>
                                     <td>
-                                        <a href="{{ url('admin/questionnaire/detail?id=' . $ques->id) }}" class="btn btn-primary">Detail</a>
                                         <a href="{{ url('admin/questionnaire/edit?id=' . $ques->id) }}" class="btn btn-success">Edit</a>
                                         <a href="{{ url('admin/questionnaire/delete?id=' . $ques->id) }}" class="btn btn-danger">Delete</a>
                                     </td>

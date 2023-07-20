@@ -24,7 +24,7 @@ class DetailRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|exists:questionnaires,id',
+            // 'id' => 'required|exists:questionnaires,id',
         ];
     }
 }

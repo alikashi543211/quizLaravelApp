@@ -32,3 +32,12 @@ use Illuminate\Support\Facades\DB;
     {
         return DB::table("user_questionnaires")->whereUserId($userId)->whereIsCorrect(false)->count();
     }
+
+    function canActionOnQuestionnaire($quesId)
+    {
+        if(DB::table('user_questionnaires')->whereQuestionnaireId($quesId)->first())
+        {
+            return false;
+        }
+        return true;
+    }

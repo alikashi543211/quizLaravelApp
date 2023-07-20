@@ -11,11 +11,10 @@
         </ol>
         <div class="row">
             <div class="col-xl-6 col-md-6">
-                <div class="card bg-success text-white mb-4">
+                <div class="card bg-primary text-white mb-4">
                     <div class="card-body">Correct</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <span class="small text-white stretched-link">{{ $correct ?? '' }}</span>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>

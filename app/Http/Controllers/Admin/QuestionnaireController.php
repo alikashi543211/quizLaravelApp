@@ -43,6 +43,10 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
+            if(!canActionOnQuestionnaire($inputs['id'])) {
+                DB::rollBack();
+                return redirect()->to('admin/questionnaire/listing')->with('error', ACTION_QUESTIONNAIRE_DENIED_MESSAGE);
+            }
             $ques = $this->model->newQuery()->whereId($inputs['id'])->with('answers')->first()->toArray();
             DB::commit();
             return view("admin.questionnaire.edit", get_defined_vars());
@@ -58,7 +62,7 @@ class QuestionnaireController extends Controller
     public function detail(DetailRequest $request)
     {
         try {
-            $questionnaire = $this->model->newQuery()->with('answers')->first();
+            $listing = $this->model->newQuery()->with('answers')->get()->toArray();
             return view("admin.questionnaire.detail", get_defined_vars());
         } catch (QueryException $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -72,6 +76,10 @@ class QuestionnaireController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
+            if(!canActionOnQuestionnaire($inputs['id'])) {
+                DB::rollBack();
+                return redirect()->to('admin/questionnaire/listing')->with('error', ACTION_QUESTIONNAIRE_DENIED_MESSAGE);
+            }
             $this->answer->newQuery()->whereQuestionnaireId($inputs['id'])->delete();
             if(!$this->model->newQuery()->whereId($inputs['id'])->delete())
             {
@@ -156,7 +164,12 @@ class QuestionnaireController extends Controller
                 DB::rollback();
                 return redirect()->back()->with('error', GENERAL_ERROR_MESSAGE);
             }
-            // dd($inputs['answers']);
+
+            if($this->answer->newQuery()->whereQuestionnaireId($inputs['id'])->count() > 0)
+            {
+                $this->answer->newQuery()->whereQuestionnaireId($inputs['id'])->delete();
+            }
+
             foreach($inputs['answers'] as $answerVal)
             {
                 $answer = $this->answer->newInstance();

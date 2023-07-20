@@ -14,8 +14,14 @@
                                 Welcome <strong>{{ auth()->user()->name }}</strong>
                             </div>
                             <div class="my-5">
-                                <a href="{{ url('user/quiz') }}" class="btn btn-success @if(auth()->user()->is_quiz_submitted) d-none @endif">Start Quiz</a>
-                                <a href="{{ url('user/quiz/result') }}" class="btn btn-danger @if(!auth()->user()->is_quiz_submitted) d-none @endif">Show Result</a>
+                                @if(auth()->user()->is_quiz_submitted)
+                                    <button class="btn btn-success" disabled>Start Quiz</button>
+                                    <a href="{{ url('user/quiz/result') }}" class="btn btn-danger @if(!auth()->user()->is_quiz_submitted) d-none @endif">Show Result</a>
+                                @else
+                                    <a href="{{ url('user/quiz') }}" class="btn btn-success @if(auth()->user()->is_quiz_submitted) d-none @endif">Start Quiz</a>
+                                    <button class="btn btn-danger" disabled>Show Result</button>
+                                @endif
+
                             </div>
                         </div>
                     </div>
