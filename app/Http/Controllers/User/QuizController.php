@@ -69,7 +69,7 @@ class QuizController extends Controller
                     $model->questionnaire_id = $userQues['questionnaire_id'];
                     $model->answer_id = $userQues['answer_id'];
                     $model->user_id = auth()->user()->id;
-                    if(!$this->answer->newQuery()->whereQuestionnaireId($userQues['questionnaire_id'])->whereId($userQues['answer_id'])->whereIsCorrect(true)->first()) {
+                    if($this->answer->newQuery()->whereQuestionnaireId($userQues['questionnaire_id'])->whereId($userQues['answer_id'])->whereIsCorrect(true)->first()) {
                         $model->is_correct = true;
                     }
                     if(!$model->save()) {

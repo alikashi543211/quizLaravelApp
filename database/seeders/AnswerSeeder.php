@@ -327,7 +327,7 @@ class AnswerSeeder extends Seeder
                 'id' => 36,
                 'questionnaire_id' => 9,
                 'title' => 'Arrow function',
-                'is_correct' => true,
+                'is_correct' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
